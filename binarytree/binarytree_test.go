@@ -35,3 +35,21 @@ func TestPosOrderRecur(t *testing.T) {
 	bs, _ := sonic.MarshalString(res)
 	t.Logf("Res: %s", bs)
 }
+
+func TestPreOrderUnRecur(t *testing.T) {
+	res := PreOrderUnRecur(initBinaryTree(t))
+	bs, _ := sonic.MarshalString(res)
+	t.Logf("Res: %s", bs)
+}
+
+func TestInOrderUnRecur(t *testing.T) {
+	res := InOrderUnRecur(initBinaryTree(t))
+	bs, _ := sonic.MarshalString(res)
+	t.Logf("Res: %s", bs)
+}
+
+func TestPosOrderUnRecur(t *testing.T) {
+	res := PosOrderUnRecur(initBinaryTree(t))
+	bs, _ := sonic.MarshalString(res)
+	t.Logf("Res: %s", bs)
+}

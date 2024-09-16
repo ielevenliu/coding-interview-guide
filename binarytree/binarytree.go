@@ -10,6 +10,7 @@ func NewTreeNode(val int) *TreeNode {
 	return &TreeNode{val: val}
 }
 
+// Recursive
 func PreOrderRecur(root *TreeNode) []int {
 	if root == nil {
 		return []int{}
@@ -62,4 +63,89 @@ func posOrderRecur(root *TreeNode, res *[]int) {
 	posOrderRecur(root.left, res)
 	posOrderRecur(root.right, res)
 	*res = append(*res, root.val)
+}
+
+// UnRecursive
+func PreOrderUnRecur(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+
+	stack := []*TreeNode{root}
+	pop := func() *TreeNode {
+		tmp := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		return tmp
+	}
+
+	var res []int
+	for len(stack) != 0 {
+		root = pop()
+		res = append(res, root.val)
+		if root.right != nil {
+			stack = append(stack, root.right)
+		}
+		if root.left != nil {
+			stack = append(stack, root.left)
+		}
+	}
+	return res
+}
+
+func InOrderUnRecur(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+
+	var stack []*TreeNode
+	pop := func() *TreeNode {
+		tmp := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		return tmp
+	}
+
+	var res []int
+	for len(stack) != 0 || root != nil {
+		if root != nil {
+			stack = append(stack, root)
+			root = root.left
+		} else {
+			root = pop()
+			res = append(res, root.val)
+			root = root.right
+		}
+	}
+	return res
+}
+
+func PosOrderUnRecur(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+
+	stack := []*TreeNode{root}
+	pop := func() *TreeNode {
+		tmp := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		return tmp
+	}
+
+	var res []int
+	for len(stack) != 0 {
+		root = pop()
+		res = append(res, root.val)
+		if root.left != nil {
+			stack = append(stack, root.left)
+		}
+		if root.right != nil {
+			stack = append(stack, root.right)
+		}
+	}
+
+	for l, r := 0, len(res)-1; l < r; {
+		res[l], res[r] = res[r], res[l]
+		l++
+		r--
+	}
+	return res
 }
