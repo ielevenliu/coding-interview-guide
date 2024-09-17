@@ -149,3 +149,56 @@ func PosOrderUnRecur(root *TreeNode) []int {
 	}
 	return res
 }
+
+func LevelOrder(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+
+	queue := []*TreeNode{root}
+	pop := func() *TreeNode {
+		tmp := queue[0]
+		queue = queue[1:]
+		return tmp
+	}
+
+	var res []int
+	for len(queue) != 0 {
+		root = pop()
+		res = append(res, root.val)
+		if root.left != nil {
+			queue = append(queue, root.left)
+		}
+		if root.right != nil {
+			queue = append(queue, root.right)
+		}
+	}
+	return res
+}
+
+func LevelOrderWithLevelNo(root *TreeNode) [][]int {
+	if root == nil {
+		return [][]int{}
+	}
+
+	var res [][]int
+	bfs(0, root, &res)
+	return res
+}
+
+func bfs(level int, root *TreeNode, res *[][]int) {
+	if root == nil {
+		return
+	}
+
+	if len(*res) < level+1 {
+		*res = append(*res, []int{})
+	}
+	(*res)[level] = append((*res)[level], root.val)
+	if root.left != nil {
+		bfs(level+1, root.left, res)
+	}
+	if root.right != nil {
+		bfs(level+1, root.right, res)
+	}
+}

@@ -53,3 +53,15 @@ func TestPosOrderUnRecur(t *testing.T) {
 	bs, _ := sonic.MarshalString(res)
 	t.Logf("Res: %s", bs)
 }
+
+func TestLevelOrder(t *testing.T) {
+	res := LevelOrder(initBinaryTree(t))
+	bs, _ := sonic.MarshalString(res)
+	t.Logf("Res: %s", bs)
+}
+
+func TestLevelOrderWithLevelNo(t *testing.T) {
+	res := LevelOrderWithLevelNo(initBinaryTree(t))
+	bs, _ := sonic.MarshalString(res)
+	t.Logf("Res: %s", bs)
+}
