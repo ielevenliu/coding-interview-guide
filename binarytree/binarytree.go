@@ -202,3 +202,35 @@ func bfs(level int, root *TreeNode, res *[][]int) {
 		bfs(level+1, root.right, res)
 	}
 }
+
+func IsSameTree(p *TreeNode, q *TreeNode) bool {
+	if p == nil && q == nil {
+		return true
+	}
+	if p == nil || q == nil {
+		return false
+	}
+	if p.val != q.val {
+		return false
+	}
+	return IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right)
+}
+
+func GenBST(nums []int) *TreeNode {
+	if len(nums) == 0 {
+		return nil
+	}
+	return genBST(nums, 0, len(nums)-1)
+}
+
+func genBST(nums []int, start, end int) *TreeNode {
+	if start > end {
+		return nil
+	}
+
+	mid := start + (end-start)/2
+	root := &TreeNode{val: nums[mid]}
+	root.left = genBST(nums, start, mid-1)
+	root.right = genBST(nums, mid+1, end)
+	return root
+}

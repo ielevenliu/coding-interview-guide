@@ -65,3 +65,17 @@ func TestLevelOrderWithLevelNo(t *testing.T) {
 	bs, _ := sonic.MarshalString(res)
 	t.Logf("Res: %s", bs)
 }
+
+func Test_IsSameTree(t *testing.T) {
+	p := initBinaryTree(t)
+	q := initBinaryTree(t)
+
+	b := IsSameTree(p, q)
+	t.Logf("Res: %+v", b)
+}
+
+func TestGenerateBSTree(t *testing.T) {
+	nums := []int{1, 2, 3, 4}
+	root := GenBST(nums)
+	t.Logf("Res: %+v", root)
+}
