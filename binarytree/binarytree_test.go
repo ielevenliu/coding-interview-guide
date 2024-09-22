@@ -61,9 +61,15 @@ func TestLevelOrder(t *testing.T) {
 }
 
 func TestLevelOrderWithLevelNo(t *testing.T) {
-	res := LevelOrderWithLevelNo(initBinaryTree(t))
+	res := LevelOrderWithLevelNoRecur(initBinaryTree(t))
 	bs, _ := sonic.MarshalString(res)
 	t.Logf("Res: %s", bs)
+}
+
+func TestLevelOrderWithLevelNoUnRecur(t *testing.T) {
+	res := LevelOrderWithLevelNoUnRecur(initBinaryTree(t))
+	bs, _ := sonic.MarshalString(res)
+	t.Logf("Res: %+v", bs)
 }
 
 func Test_IsSameTree(t *testing.T) {

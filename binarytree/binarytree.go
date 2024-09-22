@@ -176,7 +176,7 @@ func LevelOrder(root *TreeNode) []int {
 	return res
 }
 
-func LevelOrderWithLevelNo(root *TreeNode) [][]int {
+func LevelOrderWithLevelNoRecur(root *TreeNode) [][]int {
 	if root == nil {
 		return [][]int{}
 	}
@@ -201,6 +201,38 @@ func bfs(level int, root *TreeNode, res *[][]int) {
 	if root.right != nil {
 		bfs(level+1, root.right, res)
 	}
+}
+
+func LevelOrderWithLevelNoUnRecur(root *TreeNode) [][]int {
+	if root == nil {
+		return [][]int{}
+	}
+
+	queue := []*TreeNode{root}
+	pop := func() *TreeNode {
+		tmp := queue[0]
+		queue = queue[1:]
+		return tmp
+	}
+
+	var res [][]int
+	for len(queue) != 0 {
+		levelSize := len(queue)
+
+		var tmp []int
+		for i := 0; i < levelSize; i++ {
+			root = pop()
+			tmp = append(tmp, root.val)
+			if root.left != nil {
+				queue = append(queue, root.left)
+			}
+			if root.right != nil {
+				queue = append(queue, root.right)
+			}
+		}
+		res = append(res, tmp)
+	}
+	return res
 }
 
 func IsSameTree(p *TreeNode, q *TreeNode) bool {
